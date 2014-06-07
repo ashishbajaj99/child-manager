@@ -9,4 +9,9 @@ Installation
 ============
 ```
 $ npm install child-manager
+```
+
+API
+============
+```javascript
  

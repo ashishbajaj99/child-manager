@@ -8,7 +8,7 @@ var thread = new Thread('./compute.js', function(out) {
 	if(doneFlag == 0) {
 	    thread.close();
 	}
-    }, 2);
+    });
 
 thread.execute(params,-1);
 
@@ -17,7 +17,7 @@ for(var i=0; i<5; i++) {
 }
 
 for(var i=0; i<5; i++) {
-    thread.execute({num: 5},2);
+    thread.execute({num: 5},1);
 }
 
 for(var i=0; i<5; i++) {
