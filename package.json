@@ -1,7 +1,7 @@
 {
   "name": "child-manager",
-  "version": "0.0.1",
-  "description": "An extremely clean way for running CPU intensive operations on child processes. child-manager module will launch child processes to efficiently utilize the number of cores on the machine that it is executed on.",
+  "version": "0.0.4",
+  "description": "An extremely clean package to aid in running CPU intensive operations outside of the event loop, i.e. via using child processes.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
