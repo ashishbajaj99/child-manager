@@ -1,4 +1,8 @@
 child-manager
 =============
 
-An extremely clean way for running CPU intensive operations on child processes. child-manager module will launch child processes to efficiently utilize the number of cores on the machine that it is executed on.
+An extremely clean package to aid in running CPU intensive operations outside of the event loop, i.e. via using child processes. 
+
+child-manager module will launch child processes on user specified node file. The number of threads to spawn is left to the programmers choice, and if not set it will default to the number of CPU cores available on the machine that it is executing on.
+
+
