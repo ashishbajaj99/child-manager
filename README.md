@@ -13,7 +13,7 @@ $ npm install child-manager
 
 API
 ============
-Below `index.js` makes use of `child-manager` module to launch the `compute.js` file. The `child-manager` module exports a constuctor as shown below:
+Below `index.js` makes use of `child-manager` module to launch the `compute.js` file on 8 child processes. The `child-manager` module exports a constuctor as shown below:
 ```javascript
 var doneWithCompute = 0;
 var Thread = require('child-manager');
@@ -34,4 +34,15 @@ for(i=0; i<16; i++) {
 
 console.log("Done with scheduling...");
 ```
+Below is an example `compute.js`
+```javascript
+function compute(params) {
+    console.log("Done computing ", params);
+    return params;
+}
 
+process.on('message', function(params) {
+		      process.send(compute(params));
+    });
+```
+Note that the `compute.js` file **must** contain a `process.on` function call to be able to communicate its outputs back to the parent process.
