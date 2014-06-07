@@ -2,13 +2,13 @@ var Thread = require('../index.js');
 var params = {num: 500000};
 var doneFlag = 15;
 
-var thread = new Thread(3, './compute.js', function(out) {
+var thread = new Thread('./compute.js', function(out) {
 	console.log("CPU intensive out = ", out);
 	doneFlag--;
 	if(doneFlag == 0) {
 	    thread.close();
 	}
-    });
+    }, 2);
 
 thread.execute(params,-1);
 
