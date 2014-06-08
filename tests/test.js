@@ -1,6 +1,6 @@
 var Thread = require('../index.js');
 var params = {num: 500000};
-var doneFlag = 15;
+var doneFlag = 16;
 
 var thread = new Thread('./compute.js', function(out) {
 	console.log("CPU intensive out = ", out);
@@ -8,12 +8,12 @@ var thread = new Thread('./compute.js', function(out) {
 	if(doneFlag == 0) {
 	    thread.close();
 	}
-    });
+    }, 8);
 
-thread.execute(params,-1);
+thread.execute(params);
 
 for(var i=0; i<5; i++) {
-    thread.execute({num: 5},1);
+    thread.execute({num: 5},i);
 }
 
 for(var i=0; i<5; i++) {
@@ -21,7 +21,7 @@ for(var i=0; i<5; i++) {
 }
 
 for(var i=0; i<5; i++) {
-    thread.execute({num: 5},0);
+    thread.execute({num: 5});
 }
 
 
