@@ -29,7 +29,7 @@ var thread = new Thread('./compute.js', function (out) {
 
 //Execute twice on each of the 8 child processes
 for(i=0; i<16; i++) {
-    thread.execute(i, -1);
+    thread.execute(i, i%8); //i%8 specifies affinity, is optional argument
 }
 
 console.log("Done with scheduling...");
@@ -38,19 +38,20 @@ Below is an example `compute.js`
 ```javascript
 function compute(params) {
     console.log("Done computing ", params);
-    return params;
+    return params; //JSON to return back to the parent
 }
 
 process.on('message', function(params) {
-		      process.send(compute(params));
-    });
+    process.send(compute(params)); 
+});
 ```
 Note that the `compute.js` file **must** contain a `process.on` function call to be able to communicate its outputs back to the parent process.
 
 ### Constructor: Thread(proc, next, [numThreads])
 Returns a thread object. The inputs are:
 * `proc` - The .js file that needs to be launched as a seperate child process
-* `next` - The callback function to execute in the context of the parent process after the child process has sent back a compute done message
+* `next` - The callback function to execute in the context of the parent process after the child process has sent back a compute done message.
+**Note:** Output parameters can be passed back to the parent process as JSON object via process.send, and will come in as arguments to this callback
 * `numThreads` - Optional argument to suggest number of child processes to fork. If left blank, then the number of child processes will default to number of available CPU cores available on your machine
 
 ### Thread.execute(params, [affinity])
